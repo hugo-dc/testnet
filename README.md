@@ -1,4 +1,45 @@
-# ewasm testnet coordination / documentation repo
+# Ewasm public testnet
+
+Welcome to the Ewasm public testnet! This repository is the primary point of coordination for the testnet. Read on for more information about how to:
+
+- Transact on the testnet, such as by deploying smart contracts compiled to Ewasm bytecode
+- Add a node to the testnet
+- Participate in mining
+- Participate in network forks
+- Contribute to development and devops
+
+## Background
+
+Ewasm, which stands for Ethereum-flavored WebAssembly, is the primary candidate to replace EVM (the Ethereum virtual machine) as part of the Ethereum 2.0 "Shasper" roadmap. It is also proposed for adoption on the Ethereum mainnet. Ewasm is a deterministic smart contract execution engine built on the modern, standard [WebAssembly virtual machine](https://webassembly.org/).
+
+For more information on Ewasm, please refer to the following resources:
+
+- [Ewasm background, motivation, goals, and design](https://github.com/ewasm/design)
+- [The current Ewasm design spec](https://github.com/ewasm/design/blob/master/eth_interface.md)
+- [Latest Ewasm community call including live demo of the testnet](https://www.youtube.com/watch?v=apIHpBSdBio)
+- [Why eWASM? by Alex Beregszaszi (@axic)](https://www.youtube.com/watch?v=VF7f_s2P3U0)
+- [Panel: entire eWASM team discussion and Q&A](https://youtu.be/ThvForkdPyc?t=119)
+- [Ewasm community meetup at ETHBuenosAires](https://www.youtube.com/watch?v=qDzrbj7dtyU)
+
+## Contributing
+
+The primary communication channels for the Ewasm project are GitHub and Gitter.
+
+- You may log issues in this repository with questions about the testnet
+- You may make contributions to this repository as pull requests
+- Join the [public Ewasm chatroom on Gitter](https://gitter.im/ewasm/Lobby)
+
+The team also hosts a (roughly) fortnightly public "Ewasm community hangout" call. Look for the the next scheduled call in [ewasm/pm issues](https://github.com/ewasm/pm/issues). Calls are announced, including dial-in information, in [ewasm/Lobby](https://gitter.im/ewasm/Lobby). Calls are also livestreamed and recorded.
+
+## Transacting
+
+You don't need any special infrastructure to transact on the Ewasm testnet. You may run your own node (see below), or you may use the public node. You may view the list of testnet tools here: http://<TESTNET_URL>/. Start by requesting test ether from the faucet:
+
+- Configure Metamask to use the public node. Open Metamask, tap the network selector at the top, and click Custom RPC. Enter the following URL and click Save: http://<TESTNET_URL>:8545.
+- Browse to the [faucet](http://<TESTNET_URL>/faucet), make sure it read your public key correctly from Metamask in the "user" section, then tap "request 1 ether from faucet" in the "faucet" section.
+- Open the [testnet explorer](http://<TESTNET_URL>/explorer/) and watch your faucet transaction get mined.
+
+Voila! You're now ready to transact on the testnet.
 
 ## Aleth (ex cpp-ethereum)
 
@@ -100,7 +141,7 @@ Hera supports EVMC out of the box, but geth not yet.
 	export EVMC_OPTIONS='metering=true fallback=true'
 	```
 
-    Initialize the geth node priot starting up to ensure all blockchain parameters are correctly set:
+    Initialize the geth node prior to starting up to ensure all blockchain parameters are correctly set:
     
     ```sh
     ./build/bin/geth --datadir /tmp/ewasm-node/4201/ init ewasm-testnet-geth-config.json
@@ -109,9 +150,9 @@ Hera supports EVMC out of the box, but geth not yet.
 	Run the built geth with configuration for ewasm testnet.
 
 	```sh
-	./build/bin/geth --datadir /tmp/ewasm-node/4201/ --etherbase 031159dF845ADe415202e6DA299223cb640B9DB0 --rpc --rpcapi "web3,net,eth,debug" --rpcvhosts=* --rpcaddr "0.0.0.0" --rpccorsdomain "*" --vmodule "miner=12,rpc=12" --mine --miner.threads 1 --nodiscover --networkid 66 
+	./build/bin/geth --datadir /tmp/ewasm-node/4201/ --etherbase 031159dF845ADe415202e6DA299223cb640B9DB0 --rpc --rpcapi "web3,net,eth,debug" --rpcvhosts="*" --rpcaddr "0.0.0.0" --rpccorsdomain "*" --vmodule "miner=12,rpc=12" --mine --miner.threads 1 --nodiscover --networkid 66 
 	```
-    *NOTE*: don't forget to specify `networkId` with the same value as the value of `chainID` in the genesis configuration, this is to avoid [Metamask error `Invalid Sender](https://github.com/MetaMask/metamask-extension/issues/3673).
+    *NOTE*: don't forget to specify `networkId` with the same value as the value of `chainID` in the genesis configuration, this is to avoid [Metamask error `Invalid Sender`](https://github.com/MetaMask/metamask-extension/issues/3673).
 
 ## Tests
 
